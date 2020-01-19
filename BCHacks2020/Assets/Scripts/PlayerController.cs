@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     public LayerMask ground;
     public float radiusCheck;
 
+    public Animator playerAnimator;
+
 
     void Start()
     {
@@ -31,20 +33,23 @@ public class PlayerController : MonoBehaviour
 
         inputtedMove = Input.GetAxis("Horizontal");
         rbody.velocity = new Vector2(inputtedMove * moveSpeed, rbody.velocity.y);
-        
-        if (Input.GetKey(KeyCode.Space) && isGrounded) {
-            rbody.velocity = Vector2.up * jumpSpeed;
-        }
 
         if (inputtedMove < 0 && !facingRight)
             flipPlayer();
         else if (inputtedMove > 0 && facingRight)
             flipPlayer();
-
     }
 
-    void Update() {
-        
+    void Update()
+    {
+        if (Input.GetKey(KeyCode.Space) && isGrounded) {
+            rbody.velocity = Vector2.up * jumpSpeed;
+        }
+
+        if (inputtedMove == 0)
+            playerAnimator.SetBool("isRunning", false);
+        else
+            playerAnimator.SetBool("isRunning", true);
     }
 
     void flipPlayer() {
