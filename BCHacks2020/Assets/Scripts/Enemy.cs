@@ -12,8 +12,11 @@ public class Enemy : MonoBehaviour
     private int hitCounter = 0;
 
     private int health = 3;
+    private bool follow = false;
 
-    [SerializeField] private float movementSpeed = 10f;
+    public Animator animator;
+
+    [SerializeField] public float movementSpeed = 10f;
 
     private void Start()
     {
@@ -24,37 +27,55 @@ public class Enemy : MonoBehaviour
     private void Update()
     {
         if (!isHit) {
-            if (facingRight == false)
-            {
-                if (transform.position.x > player.transform.position.x)
+            if (follow) {
+                if (facingRight == false)
                 {
-                    rb2d.velocity = new Vector2(-movementSpeed, 0);
+                    if (transform.position.x > player.transform.position.x)
+                    {
+                        rb2d.velocity = new Vector2(-movementSpeed, 0);
+                    }
+                    else
+                    {
+                        facingRight = true;
+                    }
                 }
                 else
                 {
-                    facingRight = true;
+                    if (transform.position.x < player.transform.position.x)
+                    {
+                        rb2d.velocity = new Vector2(movementSpeed, 0);
+                    }
+                    else
+                    {
+                        facingRight = false;
+                    }
                 }
             }
-            else
-            {
-                if (transform.position.x < player.transform.position.x)
-                {
-                    rb2d.velocity = new Vector2(movementSpeed, 0);
-                }
-                else
-                {
-                    facingRight = false;
-                }
-            }
+
+            if (rb2d.velocity.x < 0 && facingRight)
+                flipEnemy();
+            else if (rb2d.velocity.x > 0 && !facingRight)
+                flipEnemy();
         } else {
             hitCounter--;
             if (hitCounter <= 0)
                 isHit = false;
         }
+
+        if (health <= 0) {
+            Destroy(gameObject);
+        }
+    }
+
+    void flipEnemy() {
+        facingRight = !facingRight;
+        Vector3 flipScale = transform.localScale;
+        flipScale.x *= -1;
+        transform.localScale = flipScale;
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player" && collision.gameObject.tag != "PlayerAttack")
         {
             if (!isHit) {
                 int leftRightPush = -1;
@@ -65,10 +86,15 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public void Follow() {
+        follow = true;
+    }
+
     public void KnockBack(Vector2 force) {
         rb2d.AddForce(force);
         isHit = true;
-        hitCounter = 100;
+        hitCounter = 50;
         health--;
+        animator.SetTrigger("hurtStart");
     }
 }

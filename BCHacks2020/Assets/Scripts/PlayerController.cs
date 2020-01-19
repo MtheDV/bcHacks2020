@@ -94,5 +94,6 @@ public class PlayerController : MonoBehaviour
 
     public void KnockBack(Vector2 force) {
         rbody.AddForce(force);
+        playerAnimator.SetTrigger("hurtStart");
     }
 }
