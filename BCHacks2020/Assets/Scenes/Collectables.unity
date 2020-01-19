@@ -392,7 +392,7 @@ SpriteRenderer:
   m_Size: {x: 1.52, y: 2.2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &408663851
@@ -441,6 +441,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87300089fab38144c92f42f74f5c6aee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
   movementSpeed: 3
 --- !u!50 &420290000
 Rigidbody2D:
@@ -1078,6 +1079,9 @@ MonoBehaviour:
   radiusCheck: 0.5
   collectables: 0
   playerAnimator: {fileID: 1414347035}
+  collectiblesText: {fileID: 0}
+  healthImage: {fileID: 0}
+  canvas: {fileID: 0}
 --- !u!95 &1414347035
 Animator:
   serializedVersion: 3
@@ -1175,6 +1179,9 @@ MonoBehaviour:
   radiusCheck: 0.5
   collectables: 0
   playerAnimator: {fileID: 1414347035}
+  collectiblesText: {fileID: 0}
+  healthImage: {fileID: 0}
+  canvas: {fileID: 0}
 --- !u!1 &1427541351
 GameObject:
   m_ObjectHideFlags: 0
@@ -1423,12 +1430,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1440960c64f2b844aa3de8d8845a96fb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2fe10bd4bcbeca44a93a40648bda62b7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.53, y: 2.19}
+  m_Size: {x: 1.12, y: 1.57}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
