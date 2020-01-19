@@ -20,7 +20,18 @@ public class PlayerController : MonoBehaviour
     public LayerMask ground;
     public float radiusCheck;
 
+    public int collectables = 0;
+
     public Animator playerAnimator;
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Collectables")
+        {
+            Destroy(collision.gameObject);
+            collectables++;
+        }
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Enemey" && isGrounded == false)
