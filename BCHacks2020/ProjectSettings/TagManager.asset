@@ -8,6 +8,8 @@ TagManager:
   - Collectables
   - Ice ground
   - Boucey Ground
+  - PlayerAttack
+  - EnemyRadial
   layers:
   - Default
   - TransparentFX
