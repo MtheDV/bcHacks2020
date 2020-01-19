@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
 
     private bool facingRight = false;
 
+    private Enemy enemy;
+
     private bool isGrounded;
     public Transform groundCheck;
     public LayerMask ground;
@@ -31,6 +33,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rbody = GetComponent<Rigidbody2D>();
+        enemy = GameObject.Find("Enemy Ball").GetComponent<Enemy>();
     }
 
 
