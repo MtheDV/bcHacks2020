@@ -19,6 +19,13 @@ public class PlayerController : MonoBehaviour
     public float radiusCheck;
 
     public Animator playerAnimator;
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Enemey" && isGrounded == false)
+        {
+            Destroy(collision.gameObject);
+        }
+    }
 
 
     void Start()
