@@ -68,6 +68,10 @@ public class PlayerController : MonoBehaviour
             playerAnimator.SetTrigger("jumpStart");
         }
 
+        if (Input.GetMouseButtonDown(0) && isGrounded) {
+            playerAnimator.SetTrigger("punchStart");
+        }
+
         if (isGrounded) {
             playerAnimator.SetBool("isJumping", false);
         }
@@ -86,5 +90,9 @@ public class PlayerController : MonoBehaviour
         Vector3 flipScale = transform.localScale;
         flipScale.x *= -1;
         transform.localScale = flipScale;
+    }
+
+    public void KnockBack(Vector2 force) {
+        rbody.AddForce(force);
     }
 }
