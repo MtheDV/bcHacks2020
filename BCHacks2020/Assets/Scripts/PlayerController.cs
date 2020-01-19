@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -24,6 +25,13 @@ public class PlayerController : MonoBehaviour
 
     public Animator playerAnimator;
 
+    public TextMeshProUGUI collectiblesText;
+
+    private List<GameObject> health;
+    public GameObject healthImage;
+    private int healthAmount = 4;
+    public GameObject canvas;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Collectables")
@@ -45,6 +53,17 @@ public class PlayerController : MonoBehaviour
     {
         rbody = GetComponent<Rigidbody2D>();
         enemy = GameObject.Find("Enemy Ball").GetComponent<Enemy>();
+        health = new List<GameObject>();
+        for(int i = 0; i < 4; i++) {
+            float x, y;
+            x = 100 * i + 64;
+            y = -61;
+            GameObject newHealth = Instantiate(healthImage) as GameObject;
+            newHealth.transform.position = new Vector2(x, y);
+            newHealth.transform.SetParent(canvas.transform, false);
+            health.Add(newHealth);
+        }
+        Destroy(healthImage);
     }
 
 
@@ -83,6 +102,13 @@ public class PlayerController : MonoBehaviour
             playerAnimator.SetBool("isRunning", false);
         else
             playerAnimator.SetBool("isRunning", true);
+
+        collectiblesText.text = collectables.ToString();
+
+        if (healthAmount <= 0) {
+            Destroy(gameObject);
+            // end game
+        }
     }
 
     void flipPlayer() {
@@ -95,5 +121,8 @@ public class PlayerController : MonoBehaviour
     public void KnockBack(Vector2 force) {
         rbody.AddForce(force);
         playerAnimator.SetTrigger("hurtStart");
+        healthAmount--;
+        Destroy(health[health.Count-1]);
+        health.Remove(health[health.Count-1]);
     }
 }
