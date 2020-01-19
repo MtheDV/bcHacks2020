@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Enemey
   - Collectables
+  - Ice ground
+  - Boucey Ground
   layers:
   - Default
   - TransparentFX
