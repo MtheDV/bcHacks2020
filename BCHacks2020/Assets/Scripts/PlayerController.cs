@@ -51,6 +51,14 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space) && isGrounded) {
             rbody.velocity = Vector2.up * jumpSpeed;
+            playerAnimator.SetTrigger("jumpStart");
+        }
+
+        if (isGrounded) {
+            playerAnimator.SetBool("isJumping", false);
+        }
+        else {
+            playerAnimator.SetBool("isJumping", true);
         }
 
         if (inputtedMove == 0)
